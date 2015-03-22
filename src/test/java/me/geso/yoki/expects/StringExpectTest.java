@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+@SuppressWarnings("SpellCheckingInspection")
 public class StringExpectTest {
 
 	@Test
@@ -36,6 +37,40 @@ public class StringExpectTest {
 					.startsWith("f");
 		} catch (AssertionError e) {
 			assertEquals("expect starts with <f>, but <hoge>", e.getMessage());
+		}
+	}
+
+	@Test
+	public void testToBeGraterThan() throws Exception {
+		// ok
+		expect("hoge")
+				.toBeGreaterThan("hage");
+
+		// fail
+		try {
+			expect("hoge")
+					.toBeGreaterThan("zzzz");
+		} catch (AssertionError e) {
+			assertEquals("\n"
+					+ "Expected: a value greater than \"zzzz\"\n"
+					+ "     but: \"hoge\" was less than \"zzzz\"", e.getMessage());
+		}
+	}
+
+	@Test
+	public void testToBeLessThan() throws Exception {
+		// ok
+		expect("hoge")
+				.toBeLessThan("hzge");
+
+		// fail
+		try {
+			expect("hoge")
+					.toBeLessThan("aaaa");
+		} catch (AssertionError e) {
+			assertEquals("\n"
+					+ "Expected: a value less than \"aaaa\"\n"
+					+ "     but: \"hoge\" was greater than \"aaaa\"", e.getMessage());
 		}
 	}
 }

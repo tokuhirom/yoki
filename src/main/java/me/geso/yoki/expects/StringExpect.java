@@ -5,7 +5,7 @@ import static org.junit.Assert.fail;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class StringExpect extends Expect<String> {
+public class StringExpect extends ComparableExpect<String> {
 
 	public StringExpect(final String actual) {
 		super(actual);
