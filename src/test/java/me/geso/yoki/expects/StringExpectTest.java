@@ -36,7 +36,7 @@ public class StringExpectTest {
 			expect("hoge")
 					.startsWith("f");
 		} catch (AssertionError e) {
-			assertEquals("expect starts with <f>, but <hoge>", e.getMessage());
+			assertEquals("expectBlock starts with <f>, but <hoge>", e.getMessage());
 		}
 	}
 

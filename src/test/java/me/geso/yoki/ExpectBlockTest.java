@@ -1,6 +1,6 @@
 package me.geso.yoki;
 
-import static me.geso.yoki.Yoki.expect;
+import static me.geso.yoki.Yoki.expectBlock;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
@@ -12,7 +12,7 @@ public class ExpectBlockTest {
 	@Test
 	public void testToThrow() throws Exception {
 		// OK
-		expect(() -> {
+		expectBlock(() -> {
 			throw new Exception("tagomoris");
 		}).toThrow();
 
@@ -20,7 +20,7 @@ public class ExpectBlockTest {
 		{
 			boolean thrown = false;
 			try {
-				expect(() -> {
+				expectBlock(() -> {
 				}).toThrow();
 			} catch (AssertionError e) {
 				thrown = true;
@@ -32,7 +32,7 @@ public class ExpectBlockTest {
 	@Test
 	public void testHasMessage() {
 		// OK
-		expect(() -> {
+		expectBlock(() -> {
 			throw new Exception("tagomoris");
 		}).toThrow()
 			.hasMessage("tagomoris");
@@ -41,7 +41,7 @@ public class ExpectBlockTest {
 		{
 			boolean thrown = false;
 			try {
-				expect(() -> {
+				expectBlock(() -> {
 					throw new Exception("kazeburo");
 				}).toThrow()
 					.hasMessage("tagomoris");
@@ -56,19 +56,19 @@ public class ExpectBlockTest {
 	@Test
 	public void testIsInstanceOf() throws Exception {
 		// OK
-		expect(() -> {
+		expectBlock(() -> {
 			throw new IllegalAccessError();
 		}).toThrow()
 			.isInstanceOf(IllegalAccessError.class);
 
 		// FAIL
 		try {
-			expect(() -> {
+			expectBlock(() -> {
 				throw new IllegalAccessError();
 			}).toThrow()
 				.isInstanceOf(IllegalStateException.class);
 		} catch (AssertionError e) {
-			assertThat(e.getMessage(), is("expect <class java.lang.IllegalStateException>, but <class java.lang.IllegalAccessError>"));
+			assertThat(e.getMessage(), is("expectBlock <class java.lang.IllegalStateException>, but <class java.lang.IllegalAccessError>"));
 		}
 	}
 }

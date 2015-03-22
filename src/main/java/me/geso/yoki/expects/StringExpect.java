@@ -21,7 +21,7 @@ public class StringExpect extends ComparableExpect<String> {
 
 	public void startsWith(final String prefix) {
 		if (!getActual().startsWith(prefix)) {
-			fail("expect starts with <" + prefix + ">, but <" + getActual() + ">");
+			fail("expectBlock starts with <" + prefix + ">, but <" + getActual() + ">");
 		}
 	}
 

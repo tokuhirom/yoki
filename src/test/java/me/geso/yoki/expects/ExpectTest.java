@@ -1,10 +1,13 @@
-package me.geso.yoki;
+package me.geso.yoki.expects;
 
 import static me.geso.yoki.Yoki.expect;
+import static me.geso.yoki.Yoki.expectBlock;
 import static org.junit.Assert.*;
 
 import org.junit.ComparisonFailure;
 import org.junit.Test;
+
+import lombok.Value;
 
 public class ExpectTest {
 
@@ -12,9 +15,7 @@ public class ExpectTest {
 	public void testToBeNull() throws Exception {
 		expect((String)null).toBeNull();
 
-		expect(() -> {
-			expect("hoge").toBeNull();
-		})
+		expectBlock(() -> expect("hoge").toBeNull())
 			.toThrow()
 			.hasMessage("expected null, but was <hoge>");
 	}
@@ -23,11 +24,9 @@ public class ExpectTest {
 	public void testNotToBeNull() throws Exception {
 		expect("hoge").notToBeNull();
 
-		expect(() -> {
-			expect((String)null).notToBeNull();
-		})
-				.toThrow()
-				.hasMessage("expected not null, but was <null>");
+		expectBlock(() -> expect((String)null).notToBeNull())
+			.toThrow()
+			.hasMessage("expected not null, but was <null>");
 	}
 
 	@Test
@@ -59,6 +58,18 @@ public class ExpectTest {
 			}
 			assertTrue(thrown);
 		}
+
+		// OK(Member)
+		expect(new Member("John")).toBe(new Member("John"));
+		// FAIL(member)
+		expectBlock(() -> expect(new Member("John")).toBe(new Member("Nick"))).toThrow()
+			.isInstanceOf(AssertionError.class)
+			.hasMessage("expected:<ExpectTest.Member(name=Nick)> but was:<ExpectTest.Member(name=John)>");
+	}
+
+	@Value
+	public static class Member {
+		private String name;
 	}
 
 	@Test
@@ -102,7 +113,7 @@ public class ExpectTest {
 			try {
 				expect("hige").isInstanceOf(Integer.class);
 			} catch (AssertionError e) {
-				assertEquals(e.getMessage(), "expect <class java.lang.Integer>, but <class java.lang.String>");
+				assertEquals(e.getMessage(), "expectBlock <class java.lang.Integer>, but <class java.lang.String>");
 				thrown = true;
 			}
 			assertTrue(thrown);

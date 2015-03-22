@@ -21,7 +21,7 @@ yoki provides cool interface for testing.
 
 ## Methods
 
-Every testing is starts with `me.geso.yoki.Yoki.expect` static method.
+Every testing is starts with `expectBlock` static method.
 
 ### Object
 

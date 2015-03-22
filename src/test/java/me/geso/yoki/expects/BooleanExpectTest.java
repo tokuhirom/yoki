@@ -1,6 +1,7 @@
 package me.geso.yoki.expects;
 
 import static me.geso.yoki.Yoki.expect;
+import static me.geso.yoki.Yoki.expectBlock;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -11,10 +12,10 @@ public class BooleanExpectTest {
 	@Test
 	public void testToBeTrue() throws Exception {
 		expect(true).toBeTrue();
-		expect(() -> expect(false).toBeTrue())
+		expectBlock(() -> expect(false).toBeTrue())
 				.toThrow()
 				.hasMessage("expected true, but was <false>");
-		expect(() -> expect((Boolean)null).toBeTrue())
+		expectBlock(() -> expect((Boolean)null).toBeTrue())
 				.toThrow()
 				.isInstanceOf(AssertionError.class)
 				.hasMessage("expected true, but was <null>");

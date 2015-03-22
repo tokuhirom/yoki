@@ -8,7 +8,7 @@ import me.geso.yoki.expects.ThrowableExpect;
 import me.geso.yoki.expects.ThrowableRunnableExpect;
 
 public class Yoki {
-	public static ThrowableRunnableExpect expect(final ThrowableRunnable value) {
+	public static ThrowableRunnableExpect expectBlock(final ThrowableRunnable value) {
 		return new ThrowableRunnableExpect(value);
 	}
 
@@ -24,11 +24,16 @@ public class Yoki {
 		return new ThrowableExpect(value);
 	}
 
-	public static <T> ComparableExpect expect(final Comparable<T> value) {
-		return new ComparableExpect(value);
+	public static <T extends Comparable<T>> ComparableExpect<T> expect(final T value) {
+		return new ComparableExpect<>(value);
 	}
 
 	public static <T> Expect<T> expect(final T value) {
 		return new Expect<>(value);
+	}
+
+	public static void scenario(final String message, final ThrowableRunnable code) throws Exception {
+		System.out.println("==> " + message + " <==");
+		code.run();
 	}
 }

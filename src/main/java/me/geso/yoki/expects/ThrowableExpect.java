@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 /**
  * Test case for callbacks.
  */
+@SuppressWarnings("ThrowableResultOfMethodCallIgnored")
 public class ThrowableExpect extends Expect<Throwable> {
 	public ThrowableExpect(final Throwable actual) {
 		super(actual);
@@ -25,7 +26,7 @@ public class ThrowableExpect extends Expect<Throwable> {
 	public ThrowableExpect isInstanceOf(Class<?> expectedExceptionClass) {
 		if (!expectedExceptionClass.isInstance(this.getActual())) {
 			this.getActual().printStackTrace();
-			fail("expect <" + expectedExceptionClass + ">, but <" + this.getActual().getClass() + ">");
+			fail("expectBlock <" + expectedExceptionClass + ">, but <" + this.getActual().getClass() + ">");
 		}
 		return this;
 	}

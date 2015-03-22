@@ -37,7 +37,7 @@ public class Expect<T> {
 	 */
 	public Expect<T> isInstanceOf(Class<?> expectedClass) {
 		if (!expectedClass.isInstance(this.getActual())) {
-			fail("expect <" + expectedClass + ">, but <" + this.getActual().getClass() + ">");
+			fail("expectBlock <" + expectedClass + ">, but <" + this.getActual().getClass() + ">");
 		}
 		return this;
 	}
