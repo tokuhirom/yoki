@@ -7,11 +7,11 @@ public class ThrowableRunnableExpect extends Expect<ThrowableRunnable> {
 		super(callback);
 	}
 
-	public ExpectBlock toThrow() {
+	public ThrowableExpect toThrow() {
 		try {
 			getActual().run();
 		} catch (Throwable throwable) {
-			return new ExpectBlock(throwable);
+			return new ThrowableExpect(throwable);
 		}
 		throw new AssertionError("expected exception, but not thrown.");
 	}

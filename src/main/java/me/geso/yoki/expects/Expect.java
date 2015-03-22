@@ -30,5 +30,15 @@ public class Expect<T> {
 	public void notToBe(final T expected) {
 		assertNotEquals(null, expected, actual);
 	}
-}
 
+	/**
+	 * Expect the <I>actual value</I> is instance of <I>expectedClass</I>.
+	 * @param expectedClass expected exception class.
+	 */
+	public Expect<T> isInstanceOf(Class<?> expectedClass) {
+		if (!expectedClass.isInstance(this.getActual())) {
+			fail("expect <" + expectedClass + ">, but <" + this.getActual().getClass() + ">");
+		}
+		return this;
+	}
+}

@@ -3,6 +3,7 @@ package me.geso.yoki;
 import me.geso.yoki.expects.BooleanExpect;
 import me.geso.yoki.expects.Expect;
 import me.geso.yoki.expects.StringExpect;
+import me.geso.yoki.expects.ThrowableExpect;
 import me.geso.yoki.expects.ThrowableRunnableExpect;
 
 public class Yoki {
@@ -16,6 +17,10 @@ public class Yoki {
 
 	public static BooleanExpect expect(final Boolean value) {
 		return new BooleanExpect(value);
+	}
+
+	public static ThrowableExpect expect(final Throwable value) {
+		return new ThrowableExpect(value);
 	}
 
 	public static <T> Expect<T> expect(final T value) {

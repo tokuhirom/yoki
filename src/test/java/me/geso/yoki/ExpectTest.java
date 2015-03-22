@@ -90,4 +90,22 @@ public class ExpectTest {
 			assertTrue("Exception needed", thrown);
 		}
 	}
+
+	@Test
+	public void testIsInstanceOf() throws Exception {
+		// OK
+		expect("hige").isInstanceOf(String.class);
+
+		// FAIL
+		{
+			boolean thrown = false;
+			try {
+				expect("hige").isInstanceOf(Integer.class);
+			} catch (AssertionError e) {
+				assertEquals(e.getMessage(), "expect <class java.lang.Integer>, but <class java.lang.String>");
+				thrown = true;
+			}
+			assertTrue(thrown);
+		}
+	}
 }
